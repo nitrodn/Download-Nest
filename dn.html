@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI ToolKit – 3000+ Free AI Tools</title>
+<meta name="description" content="Discover, use, and earn with the best AI tools on the web. Over 3000 free AI tools for writing, coding, design, productivity, and more.">
+<meta name="keywords" content="AI tools, artificial intelligence, free AI tools, AI writing, AI coding, AI design">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.search-container {
+background-image: linear-gradient(to right, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1));
+}
+.tool-card {
+transition: all 0.3s ease;
+}
+.tool-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.featured-tool {
+background-image: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(16, 185, 129, 0.05));
+}
+.dark-mode {
+background-color: #111827;
+color: #f3f4f6;
+}
+.dark-mode .tool-card {
+background-color: #1f2937;
+border-color: #374151;
+}
+.dark-mode .search-container {
+background-image: linear-gradient(to right, rgba(79, 70, 229, 0.2), rgba(16, 185, 129, 0.2));
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.category-btn.active {
+background-color: #4F46E5;
+color: white;
+}
+/* Custom switch */
+.switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #4F46E5;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-gray-900 text-white py-4">
+<div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+<div class="flex items-center mb-4 md:mb-0">
+<h1 class="text-2xl font-['Pacifico'] mr-4">AI ToolKit</h1>
+<p class="text-sm text-gray-300 hidden md:block">Discover, Use, and Earn with the Best AI Tools on the Web</p>
+</div>
+<div class="flex items-center">
+<div class="flex items-center mr-4">
+<span class="mr-2 text-sm">Dark Mode</span>
+<label class="switch">
+<input type="checkbox" id="darkModeToggle">
+<span class="slider"></span>
+</label>
+</div>
+<div id="userMenuContainer" class="relative">
+<button id="userMenuButton" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full cursor-pointer">
+<i class="ri-user-line text-gray-300"></i>
+</button>
+<div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+<div id="guestMenuItems">
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-login-box-line mr-2"></i>
+Sign In
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-user-add-line mr-2"></i>
+Create Account
+</a>
+<hr class="my-2 border-gray-200">
+</div>
+<div id="userMenuItems" class="hidden">
+<div class="px-4 py-2 border-b border-gray-200">
+<p class="font-medium text-gray-900" id="userNameDisplay">Guest User</p>
+<p class="text-sm text-gray-500" id="userEmailDisplay">guest@example.com</p>
+</div>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-star-line mr-2"></i>
+My Favorites
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-user-settings-line mr-2"></i>
+My Profile
+</a>
+<a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+<i class="ri-settings-3-line mr-2"></i>
+Settings
+</a>
+<hr class="my-2 border-gray-200">
+<a href="#" id="logoutButton" class="flex items-center px-4 py-2 text-red-600 hover:bg-gray-50">
+<i class="ri-logout-box-line mr-2"></i>
+Logout
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero/Search Section -->
+<section class="search-container py-16 px-4">
+<div class="container mx-auto max-w-4xl text-center">
+<h2 class="text-3xl md:text-4xl font-bold mb-6">3000+ Free AI Tools</h2>
+<p class="text-lg text-gray-600 mb-8">Find the perfect AI tool for your next project</p>
+<div class="relative mb-8">
+<input type="text" id="searchInput" placeholder="Search for AI tools..." class="w-full px-5 py-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+<div class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+</div>
+<div class="flex flex-wrap justify-center gap-3 mb-8">
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap active">All Tools</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Writing">Writing & Content</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Coding">Development</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Image">Image & Art</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Video">Video & Audio</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Marketing">Marketing & SEO</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Productivity">Productivity</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Education">Education</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Research">Research</button>
+<button class="category-btn px-4 py-2 bg-white border border-gray-300 rounded-full text-sm font-medium !rounded-button whitespace-nowrap" data-category="Business">Business</button>
+</div>
+</div>
+</section>
+<!-- Featured Tool Section -->
+<section class="py-12 px-4">
+<div class="container mx-auto max-w-6xl">
+<h3 class="text-2xl font-bold mb-8 text-center">Tool of the Day</h3>
+<div id="featuredTool" class="featured-tool p-6 rounded-lg border border-gray-200 shadow-md">
+<!-- Featured tool content will be dynamically inserted here -->
+</div>
+</div>
+</section>
+<!-- Main Tools Grid -->
+<section class="py-12 px-4 bg-gray-50">
+<div class="container mx-auto max-w-6xl">
+<h3 class="text-2xl font-bold mb-8 text-center">Browse All Tools</h3>
+<div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Tool cards will be dynamically inserted here -->
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-16 px-4 bg-white">
+<div class="container mx-auto max-w-lg text-center">
+<h3 class="text-2xl font-bold mb-4">Stay Updated</h3>
+<p class="text-gray-600 mb-8">Get the latest AI tools and exclusive offers directly to your inbox</p>
+<div class="flex flex-col sm:flex-row gap-3">
+<input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+<button class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap">Subscribe</button>
+</div>
+<p class="text-xs text-gray-500 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12 px-4 mt-auto">
+<div class="container mx-auto max-w-6xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<h4 class="font-['Pacifico'] text-xl mb-4">AI ToolKit</h4>
+<p class="text-gray-400 text-sm">Your one-stop directory for discovering the best AI tools on the web.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">Quick Links</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">About Us</a></li>
+<li><a href="#" class="hover:text-white">Submit a Tool</a></li>
+<li><a href="#" class="hover:text-white">Advertise with Us</a></li>
+<li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Connect</h4>
+<div class="flex space-x-4 mb-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-twitter-x-line text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-linkedin-line text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-github-line text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-instagram-line text-white"></i>
+</a>
+</div>
+<p class="text-gray-400 text-sm">Contact: hello@aitoolkit.com</p>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+<p class="mb-2">Some links on this site may be affiliate links. We may earn a small commission at no extra cost to you.</p>
+<p>Built by a student for the world. © 2025 AI ToolKit. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script id="tools-data">
+// Tool data
+const tools = [
+{
+id: 1,
+name: "ChatGPT",
+description: "OpenAI's advanced language model for writing, analysis, coding assistance, and creative content generation.",
+category: "Writing",
+image: "https://readdy.ai/api/search-image?query=A%20sleek%20and%20minimalist%20logo%20design%20for%20ChatGPT.%20Modern%20AI%20aesthetic%20with%20clean%20typography%20and%20subtle%20neural%20network%20elements.%20Professional%20look%20on%20white%20background.&width=400&height=300&seq=1&orientation=landscape",
+link: "https://chat.openai.com",
+featured: true
+},
+{
+id: 2,
+name: "Jasper AI",
+description: "AI-powered content creation platform for marketing copy, blog posts, and social media content with built-in SEO optimization.",
+category: "Marketing",
+image: "https://readdy.ai/api/search-image?query=A%20professional%20and%20modern%20logo%20design%20for%20Jasper%20AI%20writing%20assistant.%20Clean%20typography%20with%20subtle%20AI%20elements.%20Minimalist%20style%20on%20white%20background.&width=400&height=300&seq=2&orientation=landscape",
+link: "https://www.jasper.ai"
+},
+{
+id: 3,
+name: "GitHub Copilot",
+description: "AI pair programmer that helps you write better code faster with smart code suggestions and real-time assistance.",
+category: "Coding",
+image: "https://readdy.ai/api/search-image?query=A%20technical%20and%20modern%20logo%20for%20GitHub%20Copilot.%20Developer-focused%20design%20with%20coding%20elements.%20Clean%20professional%20style.&width=400&height=300&seq=3&orientation=landscape",
+link: "https://github.com/features/copilot"
+},
+{
+id: 4,
+name: "Midjourney",
+description: "Create stunning AI-generated artwork and illustrations from text descriptions with advanced image generation.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20creative%20and%20artistic%20logo%20for%20Midjourney.%20Abstract%20design%20with%20flowing%20elements%20suggesting%20AI%20creativity.%20Modern%20aesthetic%20on%20clean%20background.&width=400&height=300&seq=4&orientation=landscape",
+link: "https://www.midjourney.com"
+},
+{
+id: 5,
+name: "Grammarly",
+description: "AI-powered writing assistant that helps improve grammar, spelling, and writing style in real-time.",
+category: "Writing",
+image: "https://readdy.ai/api/search-image?query=A%20professional%20logo%20design%20for%20Grammarly.%20Clean%20typography%20with%20elements%20suggesting%20writing%20and%20correction.%20Minimalist%20style%20on%20white%20background.&width=400&height=300&seq=5&orientation=landscape",
+link: "https://www.grammarly.com"
+},
+{
+id: 6,
+name: "Coursera AI",
+description: "AI-enhanced learning platform offering personalized course recommendations and adaptive learning paths.",
+category: "Education",
+image: "https://readdy.ai/api/search-image?query=An%20educational%20and%20professional%20logo%20for%20Coursera%20AI.%20Modern%20design%20with%20elements%20suggesting%20learning%20and%20AI%20technology.%20Clean%20look%20on%20light%20background.&width=400&height=300&seq=6&orientation=landscape",
+link: "https://www.coursera.org"
+},
+{
+id: 7,
+name: "Notion AI",
+description: "AI writing assistant integrated into Notion for better note-taking, writing, and content organization.",
+category: "Productivity",
+image: "https://readdy.ai/api/search-image?query=A%20minimal%20and%20elegant%20logo%20for%20Notion%20AI.%20Clean%20typography%20with%20subtle%20AI%20elements%20matching%20Notions%20aesthetic.&width=400&height=300&seq=7&orientation=landscape",
+link: "https://www.notion.so/product/ai"
+},
+{
+id: 8,
+name: "Semrush AI",
+description: "AI-powered SEO and content marketing platform for keyword research and content optimization.",
+category: "Marketing",
+image: "https://readdy.ai/api/search-image?query=A%20professional%20logo%20for%20Semrush%20AI.%20Modern%20design%20with%20marketing%20and%20SEO%20elements.%20Clean%20business%20look.&width=400&height=300&seq=8&orientation=landscape",
+link: "https://www.semrush.com"
+},
+{
+id: 9,
+name: "Duolingo AI",
+description: "AI-powered language learning platform with personalized lessons and adaptive difficulty.",
+category: "Education",
+image: "https://readdy.ai/api/search-image?query=A%20friendly%20and%20educational%20logo%20for%20Duolingo%20AI.%20Playful%20design%20with%20language%20learning%20elements.%20Modern%20look%20on%20clean%20background.&width=400&height=300&seq=9&orientation=landscape",
+link: "https://www.duolingo.com"
+},
+{
+id: 10,
+name: "Elicit",
+description: "AI research assistant that helps find, analyze, and summarize academic papers and research.",
+category: "Research",
+image: "https://readdy.ai/api/search-image?query=A%20scholarly%20and%20professional%20logo%20for%20Elicit%20research%20assistant.%20Clean%20design%20with%20academic%20elements.%20Modern%20research%20aesthetic.&width=400&height=300&seq=10&orientation=landscape",
+link: "https://elicit.org"
+},
+{
+id: 11,
+name: "Descript",
+description: "AI-powered video and podcast editing platform that makes content creation as easy as editing a document.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20modern%20and%20professional%20logo%20for%20Descript.%20Clean%20design%20suggesting%20audio%20and%20video%20editing%20capabilities.%20Minimalist%20style.&width=400&height=300&seq=11&orientation=landscape",
+link: "https://www.descript.com"
+},
+{
+id: 12,
+name: "Salesforce Einstein",
+description: "AI-powered CRM platform for sales prediction, customer insights, and business automation.",
+category: "Business",
+image: "https://readdy.ai/api/search-image?query=A%20professional%20and%20business-focused%20logo%20for%20Salesforce%20Einstein.%20Modern%20design%20with%20CRM%20and%20AI%20elements.%20Clean%20corporate%20look.&width=400&height=300&seq=12&orientation=landscape",
+link: "https://www.salesforce.com/products/einstein/overview/"
+},
+{
+id: 13,
+name: "Stable Diffusion",
+description: "Open-source AI image generation model for creating high-quality images from text descriptions.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20technical%20and%20creative%20logo%20for%20Stable%20Diffusion.%20Modern%20design%20suggesting%20image%20generation%20capabilities.%20Clean%20professional%20style.&width=400&height=300&seq=13&orientation=landscape",
+link: "https://stability.ai"
+},
+{
+id: 14,
+name: "Anthropic Claude",
+description: "Advanced AI assistant for writing, analysis, and complex problem-solving with high accuracy.",
+category: "Writing",
+image: "https://readdy.ai/api/search-image?query=A%20sophisticated%20and%20minimal%20logo%20for%20Anthropic%20Claude.%20Clean%20design%20with%20subtle%20AI%20elements.%20Professional%20aesthetic.&width=400&height=300&seq=14&orientation=landscape",
+link: "https://www.anthropic.com/claude"
+},
+{
+id: 15,
+name: "RunwayML",
+description: "AI-powered creative suite for video editing, motion graphics, and visual effects.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20creative%20and%20professional%20logo%20for%20RunwayML.%20Modern%20design%20with%20video%20and%20motion%20elements.%20Clean%20aesthetic.&width=400&height=300&seq=15&orientation=landscape",
+link: "https://runway.ml"
+}
+];
+{
+id: 2,
+name: "GitHub Copilot",
+description: "AI pair programmer that helps you write better code faster with smart code suggestions and real-time assistance.",
+category: "Coding",
+image: "https://readdy.ai/api/search-image?query=A%20sleek%20and%20technical%20logo%20design%20for%20GitHub%20Copilot.%20Modern%20minimalist%20style%20featuring%20coding%20symbols%20and%20AI%20elements.%20Clean%20professional%20look%20suitable%20for%20developers.&width=400&height=300&seq=2&orientation=landscape",
+link: "https://github.com/features/copilot"
+},
+{
+id: 3,
+name: "Midjourney",
+description: "Create stunning AI-generated artwork and illustrations from text descriptions with advanced image generation technology.",
+category: "Design",
+image: "https://readdy.ai/api/search-image?query=A%20creative%20and%20artistic%20logo%20for%20Midjourney%20AI%20art%20generator.%20Abstract%20design%20with%20flowing%20elements%20suggesting%20AI%20creativity.%20Modern%20aesthetic%20on%20clean%20background.&width=400&height=300&seq=3&orientation=landscape",
+link: "https://www.midjourney.com"
+},
+{
+id: 4,
+name: "Motion",
+description: "AI-powered calendar and task management tool that automatically schedules your work and optimizes your time.",
+category: "Productivity",
+image: "https://readdy.ai/api/search-image?query=A%20minimalist%20and%20efficient%20logo%20design%20for%20Motion%20AI%20calendar%20tool.%20Clean%20typography%20with%20subtle%20motion%20elements.%20Professional%20look%20on%20white%20background.&width=400&height=300&seq=4&orientation=landscape",
+link: "https://www.usemotion.com"
+},
+{
+id: 5,
+name: "Stable Diffusion",
+description: "Open-source AI image generation model for creating high-quality images from text descriptions.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20modern%20and%20technical%20logo%20for%20Stable%20Diffusion.%20Abstract%20design%20suggesting%20image%20generation%20and%20AI%20capabilities.%20Clean%20professional%20style.&width=400&height=300&seq=5&orientation=landscape",
+link: "https://stability.ai"
+},
+{
+id: 6,
+name: "Runway",
+description: "Professional AI video editing platform for content creators with advanced editing tools and effects.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20dynamic%20and%20professional%20logo%20for%20Runway%20video%20editor.%20Modern%20design%20with%20motion%20elements%20suggesting%20video%20editing%20capabilities.%20Clean%20look%20on%20light%20background.&width=400&height=300&seq=6&orientation=landscape",
+link: "https://runway.ml"
+},
+{
+id: 7,
+name: "Copy.ai",
+description: "AI writing assistant that helps create marketing copy, social media posts, and business content in seconds.",
+category: "Writing",
+image: "https://readdy.ai/api/search-image?query=A%20clean%20and%20modern%20logo%20for%20Copy.ai%20writing%20tool.%20Minimalist%20design%20with%20typography%20focus.%20Professional%20look%20suitable%20for%20business%20users.&width=400&height=300&seq=7&orientation=landscape",
+link: "https://www.copy.ai"
+},
+{
+id: 8,
+name: "Tabnine",
+description: "AI code completion tool that supports all major IDEs and helps developers write code faster with smart suggestions.",
+category: "Coding",
+image: "https://readdy.ai/api/search-image?query=A%20technical%20and%20modern%20logo%20for%20Tabnine%20code%20assistant.%20Clean%20design%20with%20coding%20elements.%20Professional%20developer-focused%20aesthetic.&width=400&height=300&seq=8&orientation=landscape",
+link: "https://www.tabnine.com"
+},
+{
+id: 9,
+name: "Figma AI",
+description: "AI-powered design features in Figma for faster prototyping, layout suggestions, and design automation.",
+category: "Design",
+image: "https://readdy.ai/api/search-image?query=A%20sleek%20and%20modern%20logo%20representing%20Figma%20AI%20features.%20Clean%20design%20with%20subtle%20AI%20elements%20integrated%20with%20Figmas%20aesthetic.&width=400&height=300&seq=9&orientation=landscape",
+link: "https://www.figma.com/ai"
+},
+{
+id: 10,
+name: "Notion AI",
+description: "AI writing assistant integrated into Notion for better note-taking, writing, and content organization.",
+category: "Productivity",
+image: "https://readdy.ai/api/search-image?query=A%20minimal%20and%20elegant%20logo%20for%20Notion%20AI.%20Clean%20typography%20with%20subtle%20AI%20elements%20matching%20Notions%20aesthetic.&width=400&height=300&seq=10&orientation=landscape",
+link: "https://www.notion.so/product/ai"
+},
+{
+id: 11,
+name: "Leonardo.ai",
+description: "AI art generation platform for creating custom assets, illustrations, and designs for games and applications.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20creative%20and%20artistic%20logo%20for%20Leonardo.ai.%20Modern%20design%20suggesting%20AI%20art%20creation%20capabilities.%20Clean%20professional%20style.&width=400&height=300&seq=11&orientation=landscape",
+link: "https://leonardo.ai"
+},
+{
+id: 12,
+name: "Descript",
+description: "AI-powered video and podcast editing platform that makes content creation as easy as editing a document.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20modern%20and%20professional%20logo%20for%20Descript.%20Clean%20design%20suggesting%20audio%20and%20video%20editing%20capabilities.%20Minimalist%20style%20on%20light%20background.&width=400&height=300&seq=12&orientation=landscape",
+link: "https://www.descript.com"
+}
+];
+{
+id: 3,
+name: "DesignMaster",
+description: "Create professional graphics, illustrations, and UI designs with AI-generated suggestions.",
+category: "Design",
+image: "https://readdy.ai/api/search-image?query=A%20sleek%2C%20artistic%20logo%20for%20DesignMaster%2C%20an%20AI%20design%20tool.%20The%20logo%20should%20feature%20design%20elements%20like%20a%20paintbrush%2C%20color%20palette%2C%20or%20design%20grid%20with%20a%20modern%2C%20creative%20flair.%20Clean%20background%20with%20subtle%20artistic%20elements%20that%20suggest%20AI-powered%20design%20capabilities.&width=400&height=300&seq=3&orientation=landscape",
+link: "https://designmaster.example.com"
+},
+{
+id: 4,
+name: "TaskFlow AI",
+description: "AI productivity assistant that organizes your tasks, schedules, and automates routine work.",
+category: "Productivity",
+image: "https://readdy.ai/api/search-image?query=A%20streamlined%2C%20efficient-looking%20logo%20for%20TaskFlow%20AI%2C%20a%20productivity%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20workflow%2C%20organization%2C%20or%20task%20completion%20with%20a%20modern%20AI%20twist.%20Clean%20background%20with%20a%20professional%20appearance%20suitable%20for%20a%20productivity%20application.&width=400&height=300&seq=4&orientation=landscape",
+link: "https://taskflow.example.com"
+},
+{
+id: 5,
+name: "ImageGenius",
+description: "Generate stunning images from text descriptions with advanced AI image generation.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20creative%2C%20visually%20striking%20logo%20for%20ImageGenius%2C%20an%20AI%20image%20generation%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20art%2C%20photography%2C%20or%20visual%20creation%20with%20a%20high-tech%20AI%20aesthetic.%20Clean%20background%20with%20vibrant%20design%20elements%20suggesting%20image%20creation%20capabilities.&width=400&height=300&seq=5&orientation=landscape",
+link: "https://imagegenius.example.com"
+},
+{
+id: 6,
+name: "VideoForge AI",
+description: "Create, edit, and enhance videos automatically with AI-powered video editing tools.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20dynamic%2C%20motion-inspired%20logo%20for%20VideoForge%20AI%2C%20a%20video%20editing%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20video%20production%2C%20such%20as%20a%20play%20button%2C%20film%20strip%2C%20or%20editing%20timeline%20with%20a%20modern%20AI%20aesthetic.%20Clean%20background%20with%20elements%20suggesting%20motion%20and%20video%20creation.&width=400&height=300&seq=6&orientation=landscape",
+link: "https://videoforge.example.com"
+},
+{
+id: 7,
+name: "ContentCraft",
+description: "All-in-one content creation suite with AI tools for writing, editing, and content strategy.",
+category: "Writing",
+image: "https://readdy.ai/api/search-image?query=A%20sophisticated%2C%20content-focused%20logo%20for%20ContentCraft%2C%20an%20all-in-one%20AI%20content%20creation%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20writing%2C%20editing%2C%20and%20content%20strategy%20with%20a%20professional%20aesthetic.%20Clean%20background%20with%20design%20elements%20suggesting%20comprehensive%20content%20creation%20capabilities.&width=400&height=300&seq=7&orientation=landscape",
+link: "https://contentcraft.example.com"
+},
+{
+id: 8,
+name: "DevGenius",
+description: "AI development assistant that helps with code reviews, debugging, and architecture suggestions.",
+category: "Coding",
+image: "https://readdy.ai/api/search-image?query=A%20technical%2C%20developer-focused%20logo%20for%20DevGenius%2C%20an%20AI%20development%20assistant.%20The%20logo%20should%20incorporate%20coding%20elements%2C%20development%20symbols%2C%20or%20architecture%20diagrams%20with%20a%20smart%2C%20AI-powered%20aesthetic.%20Clean%20background%20with%20a%20professional%20tech%20appearance%20suitable%20for%20developers.&width=400&height=300&seq=8&orientation=landscape",
+link: "https://devgenius.example.com"
+},
+{
+id: 9,
+name: "UX Designer AI",
+description: "Create user-friendly interfaces and wireframes with AI-powered UX design suggestions.",
+category: "Design",
+image: "https://readdy.ai/api/search-image?query=A%20user-centered%2C%20interface-focused%20logo%20for%20UX%20Designer%20AI%2C%20a%20UX%20design%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20user%20interfaces%2C%20wireframes%2C%20or%20user%20experience%20design%20with%20a%20modern%20AI%20aesthetic.%20Clean%20background%20with%20design%20elements%20suggesting%20UX%20design%20capabilities.&width=400&height=300&seq=9&orientation=landscape",
+link: "https://uxdesigner.example.com"
+},
+{
+id: 10,
+name: "FocusTime",
+description: "AI productivity coach that helps you stay focused and manage your time effectively.",
+category: "Productivity",
+image: "https://readdy.ai/api/search-image?query=A%20focused%2C%20time-management%20oriented%20logo%20for%20FocusTime%2C%20an%20AI%20productivity%20coach.%20The%20logo%20should%20incorporate%20elements%20of%20time%2C%20focus%2C%20or%20productivity%20enhancement%20with%20a%20clean%2C%20professional%20aesthetic.%20Simple%20background%20with%20design%20elements%20suggesting%20time%20management%20and%20focus%20improvement.&width=400&height=300&seq=10&orientation=landscape",
+link: "https://focustime.example.com"
+},
+{
+id: 11,
+name: "PhotoEnhance AI",
+description: "Automatically enhance and restore photos with advanced AI image processing.",
+category: "Image",
+image: "https://readdy.ai/api/search-image?query=A%20polished%2C%20enhancement-focused%20logo%20for%20PhotoEnhance%20AI%2C%20a%20photo%20improvement%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20photography%2C%20image%20enhancement%2C%20or%20photo%20restoration%20with%20a%20modern%20AI%20aesthetic.%20Clean%20background%20with%20visual%20elements%20suggesting%20photo%20enhancement%20capabilities.&width=400&height=300&seq=11&orientation=landscape",
+link: "https://photoenhance.example.com"
+},
+{
+id: 12,
+name: "VideoScript AI",
+description: "Generate engaging video scripts and storyboards with AI-powered content creation.",
+category: "Video",
+image: "https://readdy.ai/api/search-image?query=A%20narrative-focused%2C%20script-oriented%20logo%20for%20VideoScript%20AI%2C%20a%20video%20scripting%20tool.%20The%20logo%20should%20incorporate%20elements%20of%20scriptwriting%2C%20storyboarding%2C%20or%20video%20planning%20with%20a%20creative%20AI%20aesthetic.%20Clean%20background%20with%20design%20elements%20suggesting%20video%20script%20creation%20capabilities.&width=400&height=300&seq=12&orientation=landscape",
+link: "https://videoscript.example.com"
+}
+];
+</script>
+<script id="tools-display">
+document.addEventListener('DOMContentLoaded', function() {
+// Select DOM elements
+const toolsGrid = document.getElementById('toolsGrid');
+const featuredToolContainer = document.getElementById('featuredTool');
+const searchInput = document.getElementById('searchInput');
+const categoryButtons = document.querySelectorAll('.category-btn');
+// Display all tools initially
+displayTools(tools);
+// Display featured tool
+displayFeaturedTool();
+// Search functionality
+searchInput.addEventListener('input', function() {
+const searchTerm = this.value.toLowerCase();
+filterTools(searchTerm, getCurrentCategory());
+});
+// Category filtering
+categoryButtons.forEach(button => {
+button.addEventListener('click', function() {
+// Remove active class from all buttons
+categoryButtons.forEach(btn => btn.classList.remove('active'));
+// Add active class to clicked button
+this.classList.add('active');
+const searchTerm = searchInput.value.toLowerCase();
+filterTools(searchTerm, getCurrentCategory());
+});
+});
+// Function to get current selected category
+function getCurrentCategory() {
+const activeButton = document.querySelector('.category-btn.active');
+return activeButton.dataset.category || 'All';
+}
+// Function to filter tools based on search term and category
+function filterTools(searchTerm, category) {
+let filteredTools = tools;
+// Filter by category if not "All"
+if (category && category !== 'All') {
+filteredTools = filteredTools.filter(tool => tool.category === category);
+}
+// Filter by search term
+if (searchTerm) {
+filteredTools = filteredTools.filter(tool =>
+tool.name.toLowerCase().includes(searchTerm) ||
+tool.description.toLowerCase().includes(searchTerm) ||
+tool.category.toLowerCase().includes(searchTerm)
+);
+}
+displayTools(filteredTools);
+}
+// Function to display tools in the grid
+function displayTools(toolsToDisplay) {
+toolsGrid.innerHTML = '';
+if (toolsToDisplay.length === 0) {
+toolsGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No tools found matching your criteria</p></div>';
+return;
+}
+toolsToDisplay.forEach(tool => {
+const toolCard = createToolCard(tool);
+toolsGrid.appendChild(toolCard);
+});
+}
+// Function to create a tool card
+function createToolCard(tool) {
+const card = document.createElement('div');
+card.className = 'tool-card bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm';
+const isFavorite = isToolFavorite(tool.id);
+const favoriteClass = isFavorite ? 'text-yellow-500' : 'text-gray-400';
+card.innerHTML = `
+<div class="relative">
+<img src="${tool.image}" alt="${tool.name}" class="w-full h-48 object-cover object-top">
+<button class="favorite-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full" data-id="${tool.id}">
+<i class="ri-star-fill ${favoriteClass}"></i>
+</button>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-semibold">${tool.name}</h4>
+<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">${tool.category}</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">${tool.description}</p>
+<a href="${tool.link}" target="_blank" class="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap">Try Now</a>
+</div>
+`;
+// Add event listener to favorite button
+const favoriteBtn = card.querySelector('.favorite-btn');
+favoriteBtn.addEventListener('click', function() {
+toggleFavorite(tool.id);
+const icon = this.querySelector('i');
+if (isToolFavorite(tool.id)) {
+icon.classList.remove('text-gray-400');
+icon.classList.add('text-yellow-500');
+} else {
+icon.classList.remove('text-yellow-500');
+icon.classList.add('text-gray-400');
+}
+});
+return card;
+}
+// Function to display featured tool
+function displayFeaturedTool() {
+// Find featured tool or pick random one
+let featuredTool = tools.find(tool => tool.featured) || tools[Math.floor(Math.random() * tools.length)];
+featuredToolContainer.innerHTML = `
+<div class="flex flex-col md:flex-row gap-6">
+<div class="md:w-1/3">
+<img src="${featuredTool.image}" alt="${featuredTool.name}" class="w-full h-64 object-cover object-top rounded-lg">
+</div>
+<div class="md:w-2/3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-bold">${featuredTool.name}</h3>
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm font-medium rounded-full">${featuredTool.category}</span>
+</div>
+<p class="text-gray-600 mb-6">${featuredTool.description}</p>
+<p class="text-gray-500 mb-6">This powerful AI tool helps streamline your workflow and boost productivity. Try it today to experience the future of AI-powered assistance.</p>
+<a href="${featuredTool.link}" target="_blank" class="inline-block bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap">Try Featured Tool</a>
+</div>
+</div>
+`;
+}
+// Favorites functionality using localStorage
+function isToolFavorite(toolId) {
+const favorites = getFavorites();
+return favorites.includes(toolId);
+}
+function toggleFavorite(toolId) {
+const favorites = getFavorites();
+const index = favorites.indexOf(toolId);
+if (index === -1) {
+favorites.push(toolId);
+} else {
+favorites.splice(index, 1);
+}
+localStorage.setItem('aiToolkitFavorites', JSON.stringify(favorites));
+}
+function getFavorites() {
+const favoritesJson = localStorage.getItem('aiToolkitFavorites');
+return favoritesJson ? JSON.parse(favoritesJson) : [];
+}
+});
+</script>
+<script id="user-menu">
+document.addEventListener('DOMContentLoaded', function() {
+const userMenuButton = document.getElementById('userMenuButton');
+const userDropdownMenu = document.getElementById('userDropdownMenu');
+const userMenuItems = document.getElementById('userMenuItems');
+const guestMenuItems = document.getElementById('guestMenuItems');
+
+let isUserLoggedIn = false; // This should be replaced with actual auth check
+let isMenuOpen = false;
+
+function toggleMenu() {
+isMenuOpen = !isMenuOpen;
+userDropdownMenu.classList.toggle('hidden');
+}
+
+function updateMenuItems() {
+if (isUserLoggedIn) {
+userMenuItems.classList.remove('hidden');
+guestMenuItems.classList.add('hidden');
+document.getElementById('userNameDisplay').textContent = 'John Smith'; // Replace with actual user name
+document.getElementById('userEmailDisplay').textContent = 'john.smith@example.com'; // Replace with actual email
+} else {
+userMenuItems.classList.add('hidden');
+guestMenuItems.classList.remove('hidden');
+}
+}
+
+userMenuButton.addEventListener('click', (e) => {
+e.stopPropagation();
+toggleMenu();
+updateMenuItems();
+});
+
+document.addEventListener('click', (e) => {
+if (isMenuOpen && !userDropdownMenu.contains(e.target)) {
+toggleMenu();
+}
+});
+
+document.getElementById('logoutButton')?.addEventListener('click', (e) => {
+e.preventDefault();
+isUserLoggedIn = false;
+toggleMenu();
+});
+});
+</script>
+
+<script id="dark-mode-toggle">
+document.addEventListener('DOMContentLoaded', function() {
+const darkModeToggle = document.getElementById('darkModeToggle');
+const body = document.body;
+// Check for saved user preference
+const isDarkMode = localStorage.getItem('darkMode') === 'true';
+// Set initial state
+if (isDarkMode) {
+body.classList.add('dark-mode');
+darkModeToggle.checked = true;
+}
+// Toggle dark mode
+darkModeToggle.addEventListener('change', function() {
+if (this.checked) {
+body.classList.add('dark-mode');
+localStorage.setItem('darkMode', 'true');
+} else {
+body.classList.remove('dark-mode');
+localStorage.setItem('darkMode', 'false');
+}
+});
+});
+</script>
+</body>
+</html>
